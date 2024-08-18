@@ -10,11 +10,9 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import React from 'react';
-
-import { FloatingComposer, FloatingThreads, liveblocksConfig, LiveblocksPlugin, useEditorStatus } from '@liveblocks/react-lexical'
+import { FloatingComposer, FloatingThreads, liveblocksConfig, LiveblocksPlugin, useEditorStatus } from '@liveblocks/react-lexical';
 import Loader from '../Loader';
-
-import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin'
+import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
 import { useThreads } from '@liveblocks/react/suspense';
 import Comments from '../Comments';
 import { DeleteModal } from '../DeleteModal';
@@ -28,8 +26,8 @@ function Placeholder() {
 }
 
 export function Editor({ roomId, currentUserType }: { roomId: string, currentUserType: UserType }) {
-  const status = useEditorStatus();
-  const { threads } = useThreads();
+  const status = useEditorStatus()
+  const { threads } = useThreads()
 
   const initialConfig = liveblocksConfig({
     namespace: 'Editor',
@@ -45,12 +43,12 @@ export function Editor({ roomId, currentUserType }: { roomId: string, currentUse
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container size-full">
-        <div className="toolbar-wrapper flex min-w-full justify-between">
+        <div className='toolbar-wrapper flex min-w-full justify-between'>
           <ToolbarPlugin />
           {currentUserType === 'editor' && <DeleteModal roomId={roomId} />}
         </div>
 
-        <div className="editor-wrapper flex flex-col items-center justify-start">
+        <div className='editor-wrapper flex flex-col items-center justify-start'>
           {status === 'not-loaded' || status === 'loading' ? <Loader /> : (
             <div className="editor-inner min-h-[1100px] relative mb-5 h-fit w-full max-w-[800px] shadow-md lg:mb-10">
               <RichTextPlugin
@@ -67,12 +65,14 @@ export function Editor({ roomId, currentUserType }: { roomId: string, currentUse
           )}
 
           <LiveblocksPlugin>
-            <FloatingComposer className="w-[350px]" />
+            <FloatingComposer className='w-[350px]' />
             <FloatingThreads threads={threads} />
             <Comments />
           </LiveblocksPlugin>
         </div>
+
       </div>
     </LexicalComposer>
   );
 }
+ 
